@@ -30,10 +30,12 @@ jobs:
       - name: Authenticate with Vault
         uses: hashicorp/vault-action@v2
         with:
-          url: "http://15.222.149.177:8200"
-          method: github
+          url: http://15.222.149.177:8200
+          method: approle
+          roleId: 9edc0919-8b46-fe55-f8c2-ca53e0615231
+          secretId: b9fa217d-77a8-2b75-2a51-34ca7a827b85
           #token: ${{ secrets.VAULT_GITHUB_TOKEN }}
-          githubToken: "hvs.CAESINA3LWidOE4uQT4qZ-pIaYJvoRWZDHecozakMKv7I6HEGh4KHGh2cy5tTXFOTjZ5R0NxWDhvNGdXeUNhM1R6UGI"
+          #githubToken: "hvs.CAESINA3LWidOE4uQT4qZ-pIaYJvoRWZDHecozakMKv7I6HEGh4KHGh2cy5tTXFOTjZ5R0NxWDhvNGdXeUNhM1R6UGI"
 
       # Étape 3: Récupérer les settings Maven depuis Vault
       - name: Retrieve Maven Settings from Vault
