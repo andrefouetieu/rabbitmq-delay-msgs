@@ -1,0 +1,19 @@
+name: CI Service Workflow
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  ci-service:
+    uses: your-org/pocmaster-parent/.github/workflows/ci.yml@main
+    with:
+      maven_settings_secret: ${{ secrets.MAVEN_SETTINGS }}
+      docker_registry: nexus.example.com/repository/docker-releases
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password_secret: DOCKER_PASSWORD

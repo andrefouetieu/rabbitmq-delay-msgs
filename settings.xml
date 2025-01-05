@@ -1,0 +1,29 @@
+
+<settings>
+    <servers>
+        <server>
+            <id>nexus-releases</id>
+            <username>${env.NEXUS_USERNAME}</username>
+            <password>${env.NEXUS_PASSWORD}</password>
+        </server>
+
+        <server>
+            <id>nexus-snapshots</id>
+            <username>${env.NEXUS_USERNAME}</username>
+            <password>${env.NEXUS_PASSWORD}</password>
+        </server>
+    </servers>
+
+    <mirrors>
+        <mirror>
+            <id>nexus-releases</id>
+            <mirrorOf>central</mirrorOf>
+            <url>${vars.NEXUS_URL}/repository/maven-releases/</url>
+        </mirror>
+        <mirror>
+            <id>nexus-snapshots</id>
+            <mirrorOf>snapshots</mirrorOf>
+            <url>${vars.NEXUS_URL}//repository/maven-snapshots/</url>
+        </mirror>
+    </mirrors>
+</settings>
