@@ -26,22 +26,31 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Install Vault CLI
+        run: |
+          curl -fsSL https://releases.hashicorp.com/vault/1.18.3/vault_1.18.3_linux_386.zip -o vault.zip
+          unzip vault.zip
+          sudo mv vault /usr/local/bin/
+          vault --version
+
       # Étape 2: Authentification avec Vault pour récupérer les settings Maven
       - name: Authenticate with Vault
         uses: hashicorp/vault-action@v2
         with:
           url: http://15.222.149.177:8200
-          method: github
+          method: token
           #roleId: 9edc0919-8b46-fe55-f8c2-ca53e0615231
           #secretId: b9fa217d-77a8-2b75-2a51-34ca7a827b85
           #token: hvs.iWhhGOOpWooVDiq25qXXfVnv
-          githubToken: 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
+          token: ${{ secrets.VAULT_GITHUB_TOKEN }}
 
       # Étape 3: Récupérer les settings Maven depuis Vault
-      - name: Retrieve Maven Settings from Vault
-        id: fetch_settings
+      - name: Retrieve Maven Settings
         run: |
+          echo "Fetching Maven settings from Vault..."
           vault kv get -field=settings_base64 secret/maven/settings | base64 --decode > ~/.m2/settings.xml
+          echo "Decoded Maven settings:"
+          cat ~/.m2/settings.xml
 
       # Étape 4: Mettre en cache les dépendances Maven pour accélérer les builds
       - name: Cache Maven dependencies
