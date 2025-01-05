@@ -33,7 +33,7 @@ jobs:
           url: "http://15.222.149.177:8200"
           method: github
           #token: ${{ secrets.VAULT_GITHUB_TOKEN }}
-          token: "hvs.CAESINA3LWidOE4uQT4qZ-pIaYJvoRWZDHecozakMKv7I6HEGh4KHGh2cy5tTXFOTjZ5R0NxWDhvNGdXeUNhM1R6UGI"
+          githubToken: "hvs.CAESINA3LWidOE4uQT4qZ-pIaYJvoRWZDHecozakMKv7I6HEGh4KHGh2cy5tTXFOTjZ5R0NxWDhvNGdXeUNhM1R6UGI"
 
       # Étape 3: Récupérer les settings Maven depuis Vault
       - name: Retrieve Maven Settings from Vault
