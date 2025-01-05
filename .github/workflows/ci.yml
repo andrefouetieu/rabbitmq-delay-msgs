@@ -35,7 +35,7 @@ jobs:
           #roleId: 9edc0919-8b46-fe55-f8c2-ca53e0615231
           #secretId: b9fa217d-77a8-2b75-2a51-34ca7a827b85
           #token: hvs.iWhhGOOpWooVDiq25qXXfVnv
-          githubToken: hvs.CAESINA3LWidOE4uQT4qZ-pIaYJvoRWZDHecozakMKv7I6HEGh4KHGh2cy5tTXFOTjZ5R0NxWDhvNGdXeUNhM1R6UGI
+          githubToken: hvs.CAESIJau-ey50X1s2wQwlTlg5JPn2RDqp-Sc5nCxsN5QR3xYGh4KHGh2cy42YlF6bWFhanplNTRPczNCUllYRzhZQm0
 
       # Étape 3: Récupérer les settings Maven depuis Vault
       - name: Retrieve Maven Settings from Vault
