@@ -46,6 +46,9 @@ jobs:
 
       # Étape 3: Récupérer les settings Maven depuis Vault
       - name: Retrieve Maven Settings
+        env:
+          VAULT_ADDR: http://15.222.149.177:8200
+          VAULT_TOKEN: ${{ secrets.VAULT_GITHUB_TOKEN }}
         run: |
           echo "Fetching Maven settings from Vault..."
           vault kv get -field=settings_base64 secret/maven/settings | base64 --decode > ~/.m2/settings.xml
