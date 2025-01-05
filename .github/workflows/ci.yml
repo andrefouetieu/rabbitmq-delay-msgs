@@ -31,7 +31,7 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: http://15.222.149.177:8200
-          #method: approle
+          method: github
           #roleId: 9edc0919-8b46-fe55-f8c2-ca53e0615231
           #secretId: b9fa217d-77a8-2b75-2a51-34ca7a827b85
           #token: hvs.iWhhGOOpWooVDiq25qXXfVnv
