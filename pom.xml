@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
-		<nexus.url>http://localhost:8081/repository/maven-releases/</nexus.url>
+		<nexus.url>http://15.222.149.177:8081/#browse/browse:maven-releases</nexus.url>
 	</properties>
 
 	<repositories>
