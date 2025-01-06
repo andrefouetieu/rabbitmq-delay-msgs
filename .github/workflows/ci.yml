@@ -37,7 +37,7 @@ jobs:
       - name: Authenticate with Vault
         uses: hashicorp/vault-action@v2
         with:
-          url: http://15.222.149.177:8200
+          url: ${{ vars.VAULT_URL }}
           method: token
           #roleId: 9edc0919-8b46-fe55-f8c2-ca53e0615231
           #secretId: b9fa217d-77a8-2b75-2a51-34ca7a827b85
@@ -47,11 +47,11 @@ jobs:
       # Étape 3: Récupérer les settings Maven depuis Vault
       - name: Retrieve Maven Settings
         env:
-          VAULT_ADDR: http://15.222.149.177:8200
+          VAULT_ADDR: ${{ vars.VAULT_URL }}
           VAULT_TOKEN: ${{ secrets.VAULT_GITHUB_TOKEN }}
         run: |
           echo "Fetching Maven settings from Vault..."
-          vault kv get -field=settings_base64 secret/maven/settings | base64 --decode > ~/.m2/settings.xml
+          vault kv get -field=settings secrets/maven | base64 --decode > ~/.m2/settings.xml
           echo "Decoded Maven settings:"
           cat ~/.m2/settings.xml
 
