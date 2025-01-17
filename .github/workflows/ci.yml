@@ -92,8 +92,8 @@ jobs:
         run: |
           PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.name -q -DforceStdout)
-          echo "PROJECT_VERSION=PROJECT_VERSION" >> $GITHUB_ENV
-          echo "PROJECT_NAME=PROJECT_NAME" >> $GITHUB_ENV
+          echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
+          echo "PROJECT_NAME=${PROJECT_NAME}" >> $GITHUB_ENV
 
       # Étape 7: Construire l'image Docker
       - name: Build Docker Image
