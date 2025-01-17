@@ -98,17 +98,17 @@ jobs:
       # Étape 7: Construire l'image Docker
       - name: Build Docker Image
         run: |
-          IMAGE_NAME="nexus.example.com/repository/docker-releases/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
+          IMAGE_NAME="${{ vars.NEXUS_URL }}/repository/docker-releases/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
           docker build -t $IMAGE_NAME .
 
       # Étape 8: Se connecter au registre Docker Nexus
       - name: Login to Nexus Docker Registry
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login nexus.example.com -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.NEXUS_PASSWORD }}" | docker login ${{ vars.NEXUS_URL }} -u "${{ secrets.NEXUS_USERNAME }}" --password-stdin
 
       # Étape 9: Pousser l'image Docker vers Nexus
       - name: Push Docker Image to Nexus
         run: |
-          IMAGE_NAME="nexus.example.com/repository/docker-releases/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
+          IMAGE_NAME="${{ vars.NEXUS_URL }}/repository/docker-releases/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
           docker push $IMAGE_NAME
 
       # Étape 10: Pousser l'artefact Maven vers Nexus
