@@ -98,7 +98,7 @@ jobs:
       # Étape 7: Construire l'image Docker
       - name: Build Docker Image
         run: |
-          IMAGE_NAME="99.79.110.210:8081//repository/docker-releases/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
+          IMAGE_NAME="99.79.110.210:8081/repository/docker-releases/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
           docker build -t $IMAGE_NAME .
 
       # Étape 8: Se connecter au registre Docker Nexus
