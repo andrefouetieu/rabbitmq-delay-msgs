@@ -1,5 +1,4 @@
-# Étape 1 : Utiliser une image de base avec Maven et JDK 17
-FROM maven:3.8.6-temurin-17 AS build
+FROM eclipse-temurin:17-jdk AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
