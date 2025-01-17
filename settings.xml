@@ -17,19 +17,31 @@
     </servers>
 
     <mirrors>
+        <!-- Miroir pour Nexus Releases -->
         <mirror>
             <id>nexus-releases</id>
             <mirrorOf>*</mirrorOf>
             <url>${env.NEXUS_URL}/repository/maven-releases/</url>
             <blocked>false</blocked>
         </mirror>
+
+        <!-- Miroir pour Nexus Snapshots -->
         <mirror>
             <id>nexus-snapshots</id>
             <mirrorOf>*</mirrorOf>
             <url>${env.NEXUS_URL}/repository/maven-snapshots/</url>
             <blocked>false</blocked>
         </mirror>
+
+        <!-- Miroir pour Maven Central (ajouté pour le fallback) -->
+        <mirror>
+            <id>central</id>
+            <mirrorOf>central</mirrorOf>
+            <url>https://repo.maven.apache.org/maven2/</url>
+            <blocked>false</blocked>
+        </mirror>
     </mirrors>
+
     <profiles>
         <profile>
             <id>allow-http</id>
@@ -44,6 +56,7 @@
                         <enabled>false</enabled>
                     </snapshots>
                 </repository>
+
                 <repository>
                     <id>nexus-snapshots</id>
                     <url>${env.NEXUS_URL}/repository/maven-snapshots/</url>
@@ -54,10 +67,24 @@
                         <enabled>true</enabled>
                     </snapshots>
                 </repository>
+
+                <!-- Ajout de Maven Central pour les dépendances -->
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
             </repositories>
         </profile>
     </profiles>
+
     <activeProfiles>
         <activeProfile>allow-http</activeProfile>
     </activeProfiles>
+
 </settings>
