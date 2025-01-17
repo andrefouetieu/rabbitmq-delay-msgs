@@ -61,6 +61,11 @@ jobs:
           MAVEN_SETTINGS: ${{ vars.MAVEN_SETTINGS }}
         run: |
           echo "$MAVEN_SETTINGS" | base64 --decode > ~/.m2/settings.xml
+          
+
+      # 3.c Valider settings.xml
+      - name: Validate settings.xml
+        run: cat ~/.m2/settings.xml
 
       # Étape 4: Mettre en cache les dépendances Maven pour accélérer les builds
       - name: Cache Maven dependencies
@@ -70,10 +75,16 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven
+            
 
       # Étape 5: Construire l'artefact Maven
       - name: Build with Maven
-        run: mvn clean install
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          NEXUS_URL: ${{ vars.NEXUS_URL }}
+        run: mvn clean install -Denv.NEXUS_USERNAME=$NEXUS_USERNAME -Denv.NEXUS_PASSWORD=$NEXUS_PASSWORD -Denv.NEXUS_URL=$NEXUS_URL
+
 
       # Étape 6: Extraire la version du projet Maven
       - name: Extract Maven Project Version

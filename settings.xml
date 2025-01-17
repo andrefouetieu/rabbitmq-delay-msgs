@@ -1,4 +1,7 @@
-<settings>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
     <servers>
         <server>
             <id>nexus-releases</id>
@@ -16,13 +19,45 @@
     <mirrors>
         <mirror>
             <id>nexus-releases</id>
-            <mirrorOf>central</mirrorOf>
-            <url>${vars.NEXUS_URL}/repository/maven-releases/</url>
+            <mirrorOf>*</mirrorOf>
+            <url>${env.NEXUS_URL}/repository/maven-releases/</url>
+            <blocked>false</blocked>
         </mirror>
         <mirror>
             <id>nexus-snapshots</id>
-            <mirrorOf>snapshots</mirrorOf>
-            <url>${vars.NEXUS_URL}//repository/maven-snapshots/</url>
+            <mirrorOf>*</mirrorOf>
+            <url>${env.NEXUS_URL}/repository/maven-snapshots/</url>
+            <blocked>false</blocked>
         </mirror>
     </mirrors>
+    <profiles>
+        <profile>
+            <id>allow-http</id>
+            <repositories>
+                <repository>
+                    <id>nexus-releases</id>
+                    <url>${env.NEXUS_URL}/repository/maven-releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>nexus-snapshots</id>
+                    <url>${env.NEXUS_URL}/repository/maven-snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>allow-http</activeProfile>
+    </activeProfiles>
 </settings>
