@@ -6,9 +6,14 @@ WORKDIR /app
 # Copier le fichier pom.xml et le dossier src dans le conteneur
 COPY pom.xml .
 COPY src ./src
+COPY .mvn ./.mvn
+COPY mvnw .
+#COPY mvnw.cmd .
+
+
 
 # Construire l'artefact (JAR)
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Étape 2 : Créer une image d'exécution avec Temurin JRE
 FROM eclipse-temurin:17-jre
