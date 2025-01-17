@@ -110,7 +110,7 @@ jobs:
 
       # Étape 8: Se connecter au registre Docker Nexus
       - name: Login to Nexus Docker Registry
-        run: echo "${{ secrets.NEXUS_PASSWORD }}" | docker login ${{ vars.NEXUS_URL }} -u "${{ secrets.NEXUS_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.NEXUS_PASSWORD }}" | docker login ${{ vars.NEXUS_URL }}/repository/docker-releases/ -u "${{ secrets.NEXUS_USERNAME }}" --password-stdin
 
       # Étape 9: Pousser l'image Docker vers Nexus
       - name: Push Docker Image to Nexus
