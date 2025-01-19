@@ -124,7 +124,7 @@ jobs:
       - name: Test Nexus Authentication
         run: |
           curl -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} \
-          ${{ NEXUS_URL }}/repository/maven-snapshots/
+          ${{ vars.NEXUS_URL }}/repository/maven-snapshots/
 
       # Étape 10: Pousser l'artefact Maven vers Nexus
       - name: Deploy Artifact to Nexus
