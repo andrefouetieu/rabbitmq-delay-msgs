@@ -61,7 +61,14 @@ jobs:
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
           echo "PROJECT_NAME=${PROJECT_NAME}" >> $GITHUB_ENV
 
-      # Étape 6: Se connecter au registre Docker Nexus
+      # Étape 6.a: config docker
+      - name: Configure Docker to use HTTP for specific registry
+        run: |
+          echo '{"insecure-registries": ["${{ vars.DOCKER_NEXUS_DOMAIN }}"]}' | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
+
+
+      # Étape 6.b: Se connecter au registre Docker Nexus
       - name: Login to Nexus Docker Registry
         uses: docker/login-action@v2
         with:
