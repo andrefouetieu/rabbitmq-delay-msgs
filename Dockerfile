@@ -1,3 +1,4 @@
+# Étape 1 : Utiliser l'image Temurin pour la phase de build
 FROM eclipse-temurin:17-jdk AS build
 
 # Définir le répertoire de travail
@@ -8,21 +9,15 @@ COPY pom.xml .
 COPY src ./src
 COPY .mvn ./.mvn
 COPY mvnw .
-#COPY mvnw.cmd .
 
-
-
-# Construire l'artefact (JAR)
-RUN ./mvnw clean package -DskipTests
-
-# Étape 2 : Créer une image d'exécution avec Temurin JRE
+# Étape 2 : Copier le JAR déjà construit par CI
 FROM eclipse-temurin:17-jre
 
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier l'artefact JAR depuis l'étape de construction
-COPY --from=build /app/target/*.jar ./app.jar
+# Copier l'artefact JAR depuis l'étape de build CI (ne pas faire de clean package dans Docker)
+COPY target/*.jar ./app.jar
 
 # Exposer le port sur lequel l'application écoute (à adapter selon votre application)
 EXPOSE 8080
