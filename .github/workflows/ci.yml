@@ -95,22 +95,25 @@ jobs:
           echo "PROJECT_VERSION=${PROJECT_VERSION}" >> $GITHUB_ENV
           echo "PROJECT_NAME=${PROJECT_NAME}" >> $GITHUB_ENV
 
-      # Étape 7: Construire l'image Docker
-      - name: Build Docker Image
-        run: |
-          IMAGE_NAME=${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}
-          docker build -t $IMAGE_NAME .
-          
+         
 
-      # Étape 8.a: config docker
+      # Étape 7.a: config docker
       - name: Configure Docker to use HTTP for specific registry
         run: |
           echo '{"insecure-registries": ["35.183.175.149:8085"]}' | sudo tee /etc/docker/daemon.json
           sudo systemctl restart docker
 
-      # Étape 8: Se connecter au registre Docker Nexus
+      # Étape 7: Se connecter au registre Docker Nexus
       - name: Login to Nexus Docker Registry
         run: echo "${{ secrets.NEXUS_PASSWORD }}" | docker login 35.183.175.149:8085 -u "${{ secrets.NEXUS_USERNAME }}" --password-stdin
+
+
+      # Étape 8: Construire l'image Docker
+      - name: Build Docker Image
+        run: |
+          IMAGE_NAME="35.183.175.149:8085/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
+          docker build -t $IMAGE_NAME .
+      
 
       # Étape 9: Pousser l'image Docker vers Nexus
       - name: Push Docker Image to Nexus
