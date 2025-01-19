@@ -115,7 +115,7 @@ jobs:
       # Étape 9: Pousser l'image Docker vers Nexus
       - name: Push Docker Image to Nexus
         run: |
-          IMAGE_NAME="35.183.175.149:8085/${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}"
+          IMAGE_NAME=${{ env.PROJECT_NAME }}:${{ env.PROJECT_VERSION }}
           docker push $IMAGE_NAME
 
       # Étape 10: Pousser l'artefact Maven vers Nexus
