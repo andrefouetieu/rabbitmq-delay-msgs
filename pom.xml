@@ -22,7 +22,7 @@
 	<repositories>
 		<repository>
 			<id>nexus-releases</id>
-			<url>http://99.79.110.210:8081/repository/maven-releases/</url>
+			<url>http://http://35.183.175.149/:8081/repository/maven-releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -32,7 +32,7 @@
 		</repository>
 		<repository>
 			<id>nexus-snapshots</id>
-			<url>http://99.79.110.210:8081/repository/maven-snapshots/</url>
+			<url>http://35.183.175.149:8081/repository/maven-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -41,6 +41,18 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://35.183.175.149:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://35.183.175.149:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 
 	<dependencyManagement>
 		<dependencies>
