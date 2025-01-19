@@ -128,6 +128,9 @@ jobs:
 
       # Étape 10: Pousser l'artefact Maven vers Nexus
       - name: Deploy Artifact to Nexus
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+          NEXUS_URL: ${{ vars.NEXUS_URL }}
         run: |
-          cat ~/.m2/settings.xml
-          mvn deploy -X -s ~/.m2/settings.xml
+          mvn deploy
